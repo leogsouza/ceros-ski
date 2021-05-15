@@ -102,4 +102,4 @@ We are looking forward to see what you come up with!
 ## Updates
 
 1. Fixed the reported bug updating the direction when the direction state was crash
-
+2. Added unit tests for Skier entity
