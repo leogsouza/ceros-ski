@@ -8,6 +8,10 @@ export class Skier extends Entity {
     direction = Constants.SKIER_DIRECTIONS.DOWN;
     speed = Constants.SKIER_STARTING_SPEED;
 
+    jumpAnimationCount = 0;
+    previousAssetName = '';
+    isJumping = false;
+
     constructor(x, y) {
         super(x, y);
     }
@@ -96,6 +100,20 @@ export class Skier extends Entity {
             this.setDirection(direction);
         }
     }
+
+    jump() {        
+        this.previousAssetName = this.assetName;
+        this.assetName = Constants.SKIER_JUMP_ASSET[Constants.SKIER_JUMP_STAGES.START];
+        const assetsJumpAnimation = Object.values(Constants.SKIER_JUMP_ASSET);
+        assetsJumpAnimation.push(this.assetName);
+        assetsJumpAnimation.forEach((asset, idx) => {
+            if (idx > 0) {                
+                setTimeout(() => {
+                    this.assetName = asset
+                }, 250 * idx );
+            }
+        });
+    } 
 
     checkIfSkierHitObstacle(obstacleManager, assetManager) {
         const asset = assetManager.getAsset(this.assetName);
