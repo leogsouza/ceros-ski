@@ -26,7 +26,7 @@ export class Skier extends Entity {
     }
 
     move() {
-        switch(this.direction) {
+        switch (this.direction) {
             case Constants.SKIER_DIRECTIONS.LEFT_DOWN:
                 this.moveSkierLeftDown();
                 break;
@@ -67,7 +67,7 @@ export class Skier extends Entity {
 
     turnLeft() {
         this.updateDirectionIfCrash(Constants.SKIER_DIRECTIONS.LEFT);
-        if(this.direction === Constants.SKIER_DIRECTIONS.LEFT) {
+        if (this.direction === Constants.SKIER_DIRECTIONS.LEFT) {
             this.moveSkierLeft();
         }
         else {
@@ -77,7 +77,7 @@ export class Skier extends Entity {
 
     turnRight() {
         this.updateDirectionIfCrash(Constants.SKIER_DIRECTIONS.RIGHT);
-        if(this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
+        if (this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
             this.moveSkierRight();
         }
         else {
@@ -86,7 +86,7 @@ export class Skier extends Entity {
     }
 
     turnUp() {
-        if(this.direction === Constants.SKIER_DIRECTIONS.LEFT || this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
+        if (this.direction === Constants.SKIER_DIRECTIONS.LEFT || this.direction === Constants.SKIER_DIRECTIONS.RIGHT) {
             this.moveSkierUp();
         }
     }
@@ -101,19 +101,21 @@ export class Skier extends Entity {
         }
     }
 
-    jump() {        
+    jump() {
+        this.isJumping = true;
         this.previousAssetName = this.assetName;
-        this.assetName = Constants.SKIER_JUMP_ASSET[Constants.SKIER_JUMP_STAGES.START];
         const assetsJumpAnimation = Object.values(Constants.SKIER_JUMP_ASSET);
-        assetsJumpAnimation.push(this.assetName);
+        assetsJumpAnimation.push(this.previousAssetName);
+        const lastIdx = assetsJumpAnimation.length - 1;
         assetsJumpAnimation.forEach((asset, idx) => {
-            if (idx > 0) {                
-                setTimeout(() => {
-                    this.assetName = asset
-                }, 250 * idx );
-            }
+            setTimeout(() => {
+                this.assetName = asset
+                if (idx === lastIdx) {
+                    this.isJumping = false;
+                }
+            }, 150 * idx);
         });
-    } 
+    }
 
     checkIfSkierHitObstacle(obstacleManager, assetManager) {
         const asset = assetManager.getAsset(this.assetName);
@@ -137,8 +139,23 @@ export class Skier extends Entity {
             return intersectTwoRects(skierBounds, obstacleBounds);
         });
 
-        if(collision) {
+        if (this.checkIfObstacleCannotJump(collision)) {
+
             this.setDirection(Constants.SKIER_DIRECTIONS.CRASH);
         }
     };
+
+    checkIfObstacleCannotJump(obstacle) {
+        if (obstacle) {
+            if (!this.isJumping && Constants.JUMP_RAMP === obstacle.assetName) {
+                this.jump();
+            } 
+
+            if (!this.isJumping || (this.isJumping && !obstacle.canJump)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

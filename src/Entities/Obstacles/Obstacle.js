@@ -16,5 +16,11 @@ export class Obstacle extends Entity {
 
         const assetIdx = randomInt(0, assetTypes.length - 1);
         this.assetName = assetTypes[assetIdx];
+
+        this.canJump = true;
+
+        if (this.assetName === Constants.TREE || this.assetName === Constants.TREE_CLUSTER) {
+            this.canJump = false;
+        }
     }
 }
