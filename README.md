@@ -99,7 +99,25 @@ how creative candidates get with this.
 
 We are looking forward to see what you come up with!
 
-## Updates
 
-1. Fixed the reported bug updating the direction when the direction state was crash
-2. Added unit tests for Skier entity
+# What I've done
+
+
+## Playing this solution
+To play my solution you can run the commands locally as it was stated on the section above or you can see at https://ceros-ski-free.netlify.app/
+
+
+## Requirements
+* **Fix a Bug:**
+
+  I fixed the reported bug that caused a blank screen when the skier is crashed and pressed the left key. To solve this bug I just set the direction to left when the skier is crashed and the player press the respective key. While I was fixing this bug, I observed that if the skier was crashed and the right key was pressed nothing happened so, I set the same behavior when right key is pressed that is when is crashed and right key is pressed the direction is set to right.
+
+* **Write Unit Tests:**
+
+  To guarantee that this bug was fixed correctly I added unit tests for this bug and also added for most part of Skier implementation.
+
+*  **Extend existing functionality:**
+
+    To accomplish this task first, I had to dive into the code to understand how the assets were placed on the canvas and how I could set a key to perform the jump action. So, I set the SPACE key to be the trigger to jump action and implmented into Skier class the code to perform the jump. It is a simple method that just iterate through the assets that represents a jump action. I also handled the way that the skier hit the obstacles identifying which could be jumped over and which not and if the Skier is making a jump or not.
+
+    While I was implementing this functionality, I found a bug that sometimes the game didn't start properly. The bug happened because sometimes there wasn't previousGameWindow so, to solve this when there's no previousGameWindow so I abort the method.
