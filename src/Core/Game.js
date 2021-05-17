@@ -10,6 +10,7 @@ export class Game {
     gameWindow = null;
 
     skierCaught = false;
+    isPause = false;
 
     constructor() {
         this.assetManager = new AssetManager();
@@ -31,12 +32,16 @@ export class Game {
 
     run() {
         
-        this.canvas.clearCanvas();
-
-        this.updateGameWindow();
-        this.drawGameWindow();
-
+        if(!this.isPause) {
+            this.canvas.clearCanvas();
+            this.updateGameWindow();
+            this.drawGameWindow();
+        }
         requestAnimationFrame(this.run.bind(this));
+    }
+
+    togglePause() {
+        this.isPause = !this.isPause;
     }
 
     updateGameWindow() {
@@ -98,6 +103,10 @@ export class Game {
                 break;
             case Constants.KEYS.SPACE:
                 this.skier.jump();
+                event.preventDefault();
+                break;
+            case Constants.KEYS.PAUSE:
+                this.togglePause();
                 event.preventDefault();
                 break;
         }
