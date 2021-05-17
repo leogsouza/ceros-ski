@@ -86,13 +86,11 @@ export class Rhino extends Entity {
     super.draw(canvas, assetManager);
 }
 
-  checkIfRhinoCaughtSkier(assetManager) {
+  checkIfRhinoCaughtSkier(skier) {
     if (this.distance === 0 && !this.eatStarted) {
-      this.isChasing = true;
-      
-    const asset = assetManager.getAsset(this.skier.assetName);//assetManager.getAsset(this.assetName);
-    asset.src = '';
-      this.eat();
+        this.isChasing = true;      
+        skier.hide();
+        this.eat();
     }
   }
 

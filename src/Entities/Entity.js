@@ -4,6 +4,8 @@ export class Entity {
 
     assetName = '';
 
+    isHidden = false;
+
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -21,10 +23,18 @@ export class Entity {
     }
 
     draw(canvas, assetManager) {
+        if(this.isHidden) {
+            return;
+        }
         const asset = assetManager.getAsset(this.assetName);
         const drawX = this.x - asset.width / 2;
         const drawY = this.y - asset.height / 2;
 
         canvas.drawImage(asset, drawX, drawY, asset.width, asset.height);
+    }
+
+
+    hide() {
+        this.isHidden = true;
     }
 }
