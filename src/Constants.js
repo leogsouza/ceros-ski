@@ -36,7 +36,7 @@ export const SKIER_JUMP_END  = 'jumpEnd';
 export const SKIER_STARTING_SPEED = 10;
 export const SKIER_DIAGONAL_SPEED_REDUCER = 1.4142;
 
-export const RHINO_STARTING_SPEED = 10;
+export const RHINO_STARTING_SPEED = 5;
 export const RHINO_DIAGONAL_SPEED_REDUCER = 1.4142;
 
 export const ASSETS = {
@@ -146,7 +146,7 @@ export const RHINO_EAT_ASSET = {
 export const DISTANCE_BETWEEN_RHINO_SKIER = 300;
 
 export const RHINO_TIME_START_EAT_INTERVAL = 150;
-export const RHINO_TIME_TO_START_CHASING = 5;
+export const RHINO_TIME_TO_START_CHASING = 5000;
 
 export const KEYS = {
     SPACE: 32,

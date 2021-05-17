@@ -9,7 +9,7 @@ import { Rect } from './Utils';
 export class Game {
     gameWindow = null;
 
-    rhinoAteSkier = false;
+    skierCaught = false;
 
     constructor() {
         this.assetManager = new AssetManager();
@@ -30,27 +30,28 @@ export class Game {
     }
 
     run() {
-
-        if (!this.rhinoAteSkier) {
-            this.canvas.clearCanvas();
-
-            this.updateGameWindow();
-            this.drawGameWindow();
-            //setTimeout(() => {this.rhinoAteSkier = true}, 10);
-        }
         
+        this.canvas.clearCanvas();
+
+        this.updateGameWindow();
+        this.drawGameWindow();
 
         requestAnimationFrame(this.run.bind(this));
     }
 
     updateGameWindow() {
-        this.skier.move();
-        
-        this.rhino.setSkier(this.skier);
-        
-        this.rhino.move();
 
-        setTimeout(() => {this.rhino.isChasing = true}, 3000);
+        if(!this.skierCaught) {
+        
+            this.skier.move();
+            
+            this.rhino.setSkier(this.skier);
+            
+            this.rhino.move();
+            this.skierCaught = this.rhino.eatStarted;
+        }
+
+        setTimeout(() => {this.rhino.isChasing = true}, Constants.RHINO_TIME_TO_START_CHASING);
 
         const previousGameWindow = this.gameWindow;
         this.calculateGameWindow();
@@ -58,7 +59,7 @@ export class Game {
         this.obstacleManager.placeNewObstacle(this.gameWindow, previousGameWindow);
 
         this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager);
-        this.rhino.checkIfRhinoCaughtSkier(this.assetManager);
+        this.rhino.checkIfRhinoCaughtSkier(this.assetManager);        
     }
 
     drawGameWindow() {
