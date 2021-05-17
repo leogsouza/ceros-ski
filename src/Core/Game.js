@@ -2,16 +2,20 @@ import * as Constants from "../Constants";
 import { AssetManager } from "./AssetManager";
 import { Canvas } from './Canvas';
 import { Skier } from "../Entities/Skier";
+import { Rhino } from "../Entities/Rhino";
 import { ObstacleManager } from "../Entities/Obstacles/ObstacleManager";
 import { Rect } from './Utils';
 
 export class Game {
     gameWindow = null;
 
+    rhinoAteSkier = false;
+
     constructor() {
         this.assetManager = new AssetManager();
         this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.skier = new Skier(0, 0);
+        this.rhino = new Rhino(0, 0);
         this.obstacleManager = new ObstacleManager();
 
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
@@ -26,16 +30,27 @@ export class Game {
     }
 
     run() {
-        this.canvas.clearCanvas();
 
-        this.updateGameWindow();
-        this.drawGameWindow();
+        if (!this.rhinoAteSkier) {
+            this.canvas.clearCanvas();
+
+            this.updateGameWindow();
+            this.drawGameWindow();
+            //setTimeout(() => {this.rhinoAteSkier = true}, 10);
+        }
+        
 
         requestAnimationFrame(this.run.bind(this));
     }
 
     updateGameWindow() {
         this.skier.move();
+        
+        this.rhino.setSkier(this.skier);
+        
+        this.rhino.move();
+
+        setTimeout(() => {this.rhino.isChasing = true}, 3000);
 
         const previousGameWindow = this.gameWindow;
         this.calculateGameWindow();
@@ -43,12 +58,14 @@ export class Game {
         this.obstacleManager.placeNewObstacle(this.gameWindow, previousGameWindow);
 
         this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager);
+        this.rhino.checkIfRhinoCaughtSkier(this.assetManager);
     }
 
     drawGameWindow() {
         this.canvas.setDrawOffset(this.gameWindow.left, this.gameWindow.top);
 
         this.skier.draw(this.canvas, this.assetManager);
+        this.rhino.draw(this.canvas, this.assetManager);
         this.obstacleManager.drawObstacles(this.canvas, this.assetManager);
     }
 
@@ -83,5 +100,5 @@ export class Game {
                 event.preventDefault();
                 break;
         }
-    }
+    }   
 }
