@@ -154,5 +154,6 @@ export const KEYS = {
     RIGHT : 39,
     UP : 38,
     DOWN : 40,
-    PAUSE: 80
+    P: 80,
+    F3: 114,
 };

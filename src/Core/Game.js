@@ -11,6 +11,7 @@ export class Game {
 
     skierCaught = false;
     isPause = false;
+    isOver = false;
 
     constructor() {
         this.assetManager = new AssetManager();
@@ -54,6 +55,10 @@ export class Game {
             
             this.rhino.move();
             this.skierCaught = this.rhino.eatStarted;
+        }
+
+        if (this.skierCaught) {
+            this.isOver = true;
         }
 
         setTimeout(() => {this.rhino.isChasing = true}, Constants.RHINO_TIME_TO_START_CHASING);
@@ -105,7 +110,7 @@ export class Game {
                 this.skier.jump();
                 event.preventDefault();
                 break;
-            case Constants.KEYS.PAUSE:
+            case Constants.KEYS.P:
                 this.togglePause();
                 event.preventDefault();
                 break;

@@ -88,7 +88,6 @@ export class Rhino extends Entity {
 
   checkIfRhinoCaughtSkier(skier) {
     if (this.distance === 0 && !this.eatStarted) {
-        this.isChasing = true;      
         skier.hide();
         this.eat();
     }
