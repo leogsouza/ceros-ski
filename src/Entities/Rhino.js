@@ -10,8 +10,7 @@ export class Rhino extends Entity {
   skierPosition;
   skier;
 
-  isChasing = false;
-  caughtSkier = false;
+  isChasing = false;  
   eatStarted = false;
 
   constructor(x, y) {
@@ -21,8 +20,6 @@ export class Rhino extends Entity {
   updateAsset() {
     this.assetName = Constants.RHINO_MOVE_ASSET[this.rhinoMove];
   }
-
-  
 
   setDistance() {
     this.distance = this.distance - this.speed / Constants.SKIER_DIAGONAL_SPEED_REDUCER;
@@ -92,16 +89,4 @@ export class Rhino extends Entity {
         this.eat();
     }
   }
-
-  getBounds(target) {
-    const asset = this.assetManager.getAsset(target.assetName);
-    const targetBounds = new Rect(
-        target.x - asset.width / 2,
-        target.y - asset.height / 2,
-        target.x + asset.width / 2,
-        target.y - asset.height / 4
-    );
-    return targetBounds;
-}
-
 }
