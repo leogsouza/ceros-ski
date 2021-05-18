@@ -104,7 +104,11 @@ We are looking forward to see what you come up with!
 
 
 ## Playing this solution
-To play my solution you can run the commands locally as it was stated on the section above or you can see at https://ceros-ski-free.netlify.app/
+To play my solution you can run the commands locally as it was stated on the section above or you can see at https://ceros-ski-free.netlify.app/.
+
+
+## Github Repo
+The code of this solution can be found at https://github.com/leogsouza/ceros-ski .
 
 
 ## Requirements
@@ -121,3 +125,29 @@ To play my solution you can run the commands locally as it was stated on the sec
     To accomplish this task first, I had to dive into the code to understand how the assets were placed on the canvas and how I could set a key to perform the jump action. So, I set the SPACE key to be the trigger to jump action and implmented into Skier class the code to perform the jump. It is a simple method that just iterate through the assets that represents a jump action. I also handled the way that the skier hit the obstacles identifying which could be jumped over and which not and if the Skier is making a jump or not.
 
     While I was implementing this functionality, I found a bug that sometimes the game didn't start properly. The bug happened because sometimes there wasn't previousGameWindow so, to solve this when there's no previousGameWindow so I abort the method.
+
+* **Build  something new:**
+
+  Wow! That was a challenging task.
+  To complete this task I create a new class to represent the Rhino Entity and set the constants to identify the moves and eat assets. The Rhino appears on game after a specific period of time and at a specific positin start to chase the skier. When the distance between the skier and the rhino is 0 so, the Rhino catches him so the skier is hidden and it starts the Eating Animation and the skier can't move anymore finishing the game!
+
+* **Documentation:**
+
+  This **README** is being updated when there are new implmeentations on this project.
+
+* **Bonus:**
+
+  I implemented some feature suggested on bonus section.
+  - [x] Provide a way to reset the game once it's over. The game can be restarted pressing the F3 key
+  - [x] Provide a way to pause and resume the game. The game can be paused and resumed pressing the P key
+
+
+
+## Feature I would like to implement
+
+* Write more unit tests for all feature
+* Create an Game Over windows
+* Display the distance that the skier covered while he was skiing
+* Increase and decrease the skier's speed depending on the direction
+* A scoreboard
+* Play some audios when rhino appears and when the game is over.
